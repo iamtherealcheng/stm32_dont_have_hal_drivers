@@ -1,0 +1,167 @@
+ARM GAS  C:\Users\tungc\AppData\Local\Temp\ccLSrMSl.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.main,"ax",%progbits
+  18              		.align	1
+  19              		.global	main
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  24              	main:
+  25              	.LFB63:
+  26              		.file 1 "Core/Src/main.c"
+   1:Core/Src/main.c **** 
+   2:Core/Src/main.c **** #include "stm32f1xx.h"
+   3:Core/Src/main.c **** 
+   4:Core/Src/main.c **** int main(void)
+   5:Core/Src/main.c **** {
+  27              		.loc 1 5 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+   6:Core/Src/main.c ****     //Step 1: Enable the clock to PORT B
+   7:Core/Src/main.c ****     RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
+  32              		.loc 1 7 5 view .LVU1
+  33              		.loc 1 7 18 is_stmt 0 view .LVU2
+  34 0000 0F4A     		ldr	r2, .L7
+  35 0002 9369     		ldr	r3, [r2, #24]
+  36 0004 43F00803 		orr	r3, r3, #8
+  37 0008 9361     		str	r3, [r2, #24]
+   8:Core/Src/main.c **** 
+   9:Core/Src/main.c ****     //Step 2: Change PB0's mode to 0x3 (output) and cfg to 0x0 (push-pull)
+  10:Core/Src/main.c ****     GPIOB->CRL = GPIO_CRL_MODE0_0 | GPIO_CRL_MODE0_1;
+  38              		.loc 1 10 5 is_stmt 1 view .LVU3
+  39              		.loc 1 10 16 is_stmt 0 view .LVU4
+  40 000a 0E4B     		ldr	r3, .L7+4
+  41 000c 0322     		movs	r2, #3
+  42 000e 1A60     		str	r2, [r3]
+  43 0010 11E0     		b	.L6
+  44              	.LVL0:
+  45              	.L3:
+  46              	.LBB2:
+  11:Core/Src/main.c **** 
+  12:Core/Src/main.c ****     while (1)
+ARM GAS  C:\Users\tungc\AppData\Local\Temp\ccLSrMSl.s 			page 2
+
+
+  13:Core/Src/main.c ****     {
+  14:Core/Src/main.c ****         //Step 3: Set PB0 high
+  15:Core/Src/main.c ****         GPIOB->BSRR = GPIO_BSRR_BS0;
+  16:Core/Src/main.c ****         for (uint16_t i = 0; i != 0xffff; i++) { }
+  47              		.loc 1 16 50 is_stmt 1 discriminator 3 view .LVU5
+  48              		.loc 1 16 43 discriminator 3 view .LVU6
+  49              		.loc 1 16 44 is_stmt 0 discriminator 3 view .LVU7
+  50 0012 0133     		adds	r3, r3, #1
+  51              	.LVL1:
+  52              		.loc 1 16 44 discriminator 3 view .LVU8
+  53 0014 9BB2     		uxth	r3, r3
+  54              	.LVL2:
+  55              	.L2:
+  56              		.loc 1 16 30 is_stmt 1 discriminator 1 view .LVU9
+  57              		.loc 1 16 9 is_stmt 0 discriminator 1 view .LVU10
+  58 0016 4FF6FF72 		movw	r2, #65535
+  59 001a 9342     		cmp	r3, r2
+  60 001c F9D1     		bne	.L3
+  61              	.LBE2:
+  17:Core/Src/main.c ****         //Step 4: Reset PB0 low
+  18:Core/Src/main.c ****         GPIOB->BSRR = GPIO_BSRR_BR0;
+  62              		.loc 1 18 9 is_stmt 1 view .LVU11
+  63              		.loc 1 18 21 is_stmt 0 view .LVU12
+  64 001e 094B     		ldr	r3, .L7+4
+  65              	.LVL3:
+  66              		.loc 1 18 21 view .LVU13
+  67 0020 4FF48032 		mov	r2, #65536
+  68 0024 1A61     		str	r2, [r3, #16]
+  19:Core/Src/main.c ****         for (uint16_t i = 0; i != 0xffff; i++) { }
+  69              		.loc 1 19 9 is_stmt 1 view .LVU14
+  70              	.LBB3:
+  71              		.loc 1 19 14 view .LVU15
+  72              	.LVL4:
+  73              		.loc 1 19 23 is_stmt 0 view .LVU16
+  74 0026 0023     		movs	r3, #0
+  75              		.loc 1 19 9 view .LVU17
+  76 0028 01E0     		b	.L4
+  77              	.LVL5:
+  78              	.L5:
+  79              		.loc 1 19 50 is_stmt 1 discriminator 3 view .LVU18
+  80              		.loc 1 19 43 discriminator 3 view .LVU19
+  81              		.loc 1 19 44 is_stmt 0 discriminator 3 view .LVU20
+  82 002a 0133     		adds	r3, r3, #1
+  83              	.LVL6:
+  84              		.loc 1 19 44 discriminator 3 view .LVU21
+  85 002c 9BB2     		uxth	r3, r3
+  86              	.LVL7:
+  87              	.L4:
+  88              		.loc 1 19 30 is_stmt 1 discriminator 1 view .LVU22
+  89              		.loc 1 19 9 is_stmt 0 discriminator 1 view .LVU23
+  90 002e 4FF6FF72 		movw	r2, #65535
+  91 0032 9342     		cmp	r3, r2
+  92 0034 F9D1     		bne	.L5
+  93              	.LVL8:
+  94              	.L6:
+  95              		.loc 1 19 9 discriminator 1 view .LVU24
+  96              	.LBE3:
+ARM GAS  C:\Users\tungc\AppData\Local\Temp\ccLSrMSl.s 			page 3
+
+
+  12:Core/Src/main.c ****     {
+  97              		.loc 1 12 5 is_stmt 1 view .LVU25
+  15:Core/Src/main.c ****         for (uint16_t i = 0; i != 0xffff; i++) { }
+  98              		.loc 1 15 9 view .LVU26
+  15:Core/Src/main.c ****         for (uint16_t i = 0; i != 0xffff; i++) { }
+  99              		.loc 1 15 21 is_stmt 0 view .LVU27
+ 100 0036 034B     		ldr	r3, .L7+4
+ 101 0038 0122     		movs	r2, #1
+ 102 003a 1A61     		str	r2, [r3, #16]
+  16:Core/Src/main.c ****         //Step 4: Reset PB0 low
+ 103              		.loc 1 16 9 is_stmt 1 view .LVU28
+ 104              	.LBB4:
+  16:Core/Src/main.c ****         //Step 4: Reset PB0 low
+ 105              		.loc 1 16 14 view .LVU29
+ 106              	.LVL9:
+  16:Core/Src/main.c ****         //Step 4: Reset PB0 low
+ 107              		.loc 1 16 23 is_stmt 0 view .LVU30
+ 108 003c 0023     		movs	r3, #0
+  16:Core/Src/main.c ****         //Step 4: Reset PB0 low
+ 109              		.loc 1 16 9 view .LVU31
+ 110 003e EAE7     		b	.L2
+ 111              	.L8:
+ 112              		.align	2
+ 113              	.L7:
+ 114 0040 00100240 		.word	1073876992
+ 115 0044 000C0140 		.word	1073810432
+ 116              	.LBE4:
+ 117              		.cfi_endproc
+ 118              	.LFE63:
+ 120              		.text
+ 121              	.Letext0:
+ 122              		.file 2 "c:\\program files (x86)\\arm1\\arm\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 123              		.file 3 "c:\\program files (x86)\\arm1\\arm\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 124              		.file 4 "Core/Inc/stm32f103xb.h"
+ARM GAS  C:\Users\tungc\AppData\Local\Temp\ccLSrMSl.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\tungc\AppData\Local\Temp\ccLSrMSl.s:18     .text.main:00000000 $t
+C:\Users\tungc\AppData\Local\Temp\ccLSrMSl.s:24     .text.main:00000000 main
+C:\Users\tungc\AppData\Local\Temp\ccLSrMSl.s:114    .text.main:00000040 $d
+
+NO UNDEFINED SYMBOLS
